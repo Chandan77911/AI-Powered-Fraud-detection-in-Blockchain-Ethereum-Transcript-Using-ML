@@ -1,0 +1,18 @@
+# Dependency folders 
+node_modules/
+frontend/node_modules/
+backend/venv/
+env/
+.env
+
+# Python specific
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Large data files 
+*.csv
