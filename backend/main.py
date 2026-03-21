@@ -29,9 +29,17 @@ app = FastAPI(
     version="1.0.0",
 )
 
+# ── CORS Configuration (Updated for Production) ──────────────────────────────
+origins = [
+    "https://ethereum-fraud-sentinel.netlify.app", # Aapka Netlify link
+    "https://eth-fraud-backend.onrender.com",      # Aapka Render link
+    "http://localhost:5173",                       # Local development (Vite)
+    "http://localhost:8000",                       # Local development (FastAPI)
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,       # Ab ye sirf list waale URLs allow karega
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
