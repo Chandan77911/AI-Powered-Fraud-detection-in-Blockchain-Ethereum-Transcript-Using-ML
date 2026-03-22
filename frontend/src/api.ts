@@ -1,6 +1,7 @@
 import type { PredictionRequest, PredictionResponse } from './types'
 
-const BASE = "https://eth-fraud-backend.onrender.com";
+// BASE URL: Isme end mein trailing slash ya /predict mat lagaiye
+const BASE_URL = "https://eth-fraud-detection.onrender.com";
 
 // Maps our clean frontend keys → the exact backend aliases
 function toBackendPayload(req: PredictionRequest): Record<string, number> {
@@ -33,7 +34,8 @@ function toBackendPayload(req: PredictionRequest): Record<string, number> {
 export async function predict(request: PredictionRequest): Promise<PredictionResponse> {
   const payload = toBackendPayload(request)
 
-  const res = await fetch(`${BASE}/predict`, {
+  // Yahan ab sahi path banega: https://eth-fraud-detection.onrender.com/api/predict
+  const res = await fetch(`${BASE_URL}/api/predict`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
@@ -48,6 +50,7 @@ export async function predict(request: PredictionRequest): Promise<PredictionRes
 }
 
 export async function healthCheck(): Promise<{ status: string; model_loaded: boolean }> {
-  const res = await fetch(`${BASE}/health`)
+  // Yahan path banega: https://eth-fraud-detection.onrender.com/api/health
+  const res = await fetch(`${BASE_URL}/api/health`)
   return res.json()
 }

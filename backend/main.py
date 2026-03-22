@@ -38,7 +38,7 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,       # Ab ye sirf list waale URLs allow karega
+    allow_origins=["*"],       # Ab ye sirf list waale URLs allow karega
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
