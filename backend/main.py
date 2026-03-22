@@ -31,10 +31,9 @@ app = FastAPI(
 
 # ── CORS Configuration (Updated for Production) ──────────────────────────────
 origins = [
-    "https://ethereum-fraud-sentinel.netlify.app", # Aapka Netlify link
-    "https://eth-fraud-backend.onrender.com",      # Aapka Render link
-    "http://localhost:5173",                       # Local development (Vite)
-    "http://localhost:8000",                       # Local development (FastAPI)
+    "https://ethereum-fraud-sentinel.netlify.app", # Apna actual Netlify URL yahan check karein
+    "https://eth-fraud-detection.onrender.com",
+    "http://localhost:5173",
 ]
 
 app.add_middleware(
