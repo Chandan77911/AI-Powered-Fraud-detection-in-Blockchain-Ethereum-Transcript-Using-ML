@@ -1,14 +1,22 @@
 import { motion } from 'framer-motion'
 
+<<<<<<< HEAD
 interface Props {
   message?: string
 }
 
 export default function LoadingSpinner({ message }: Props) {
+=======
+export default function LoadingSpinner() {
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
   return (
     <motion.div className="flex flex-col items-center gap-6 py-20"
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
 
+<<<<<<< HEAD
+=======
+      {/* Triple ring spinner */}
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
       <div className="relative" style={{ width: 88, height: 88 }}>
         <motion.div className="absolute inset-0 rounded-full"
           style={{ border: '2px solid rgba(98,126,234,0.15)', borderTopColor: '#627EEA' }}
@@ -25,32 +33,57 @@ export default function LoadingSpinner({ message }: Props) {
           animate={{ rotate: 360 }}
           transition={{ duration: 2.3, repeat: Infinity, ease: 'linear' }}
         />
+<<<<<<< HEAD
         <motion.div className="absolute inset-[35%] rounded-full"
           style={{ background: '#627EEA' }}
           animate={{
             scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7],
             boxShadow: ['0 0 8px rgba(98,126,234,0.4)', '0 0 20px rgba(98,126,234,0.8)', '0 0 8px rgba(98,126,234,0.4)'],
           }}
+=======
+        {/* Center dot */}
+        <motion.div className="absolute inset-[35%] rounded-full"
+          style={{ background: '#627EEA' }}
+          animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7],
+            boxShadow: ['0 0 8px rgba(98,126,234,0.4)', '0 0 20px rgba(98,126,234,0.8)', '0 0 8px rgba(98,126,234,0.4)'] }}
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
           transition={{ duration: 1.2, repeat: Infinity }}
         />
       </div>
 
+<<<<<<< HEAD
       <div className="text-center space-y-1.5">
         <motion.p style={{
           fontFamily: 'Syne, sans-serif', fontWeight: 600, fontSize: 14,
           letterSpacing: '0.12em', color: '#8B9FEF',
         }}
+=======
+      {/* Text */}
+      <div className="text-center space-y-1.5">
+        <motion.p style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600, fontSize: 14,
+            letterSpacing: '0.12em', color: '#8B9FEF' }}
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
           animate={{ opacity: [0.6, 1, 0.6] }}
           transition={{ duration: 1.6, repeat: Infinity }}>
           ANALYZING ON-CHAIN PATTERNS
         </motion.p>
         <p className="font-mono" style={{ fontSize: 11, color: '#374151', letterSpacing: '0.08em' }}>
+<<<<<<< HEAD
           {message ?? 'XGBoost inference · 22 features'}
         </p>
       </div>
 
       <div className="flex gap-1.5">
         {[0, 1, 2, 3].map(i => (
+=======
+          XGBoost inference · 22 features
+        </p>
+      </div>
+
+      {/* Progress dots */}
+      <div className="flex gap-1.5">
+        {[0,1,2,3].map(i => (
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
           <motion.div key={i} className="rounded-full"
             style={{ width: 5, height: 5, background: '#627EEA' }}
             animate={{ opacity: [0.15, 0.9, 0.15], scale: [1, 1.5, 1] }}

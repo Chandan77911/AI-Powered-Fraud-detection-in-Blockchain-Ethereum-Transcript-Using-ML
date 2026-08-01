@@ -1,14 +1,21 @@
 import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+<<<<<<< HEAD
 import { Zap, RotateCcw, AlertCircle, Cpu, Wallet, SlidersHorizontal } from 'lucide-react'
 
 import Header from './components/Header'
 import AddressInput from './components/AddressInput'
+=======
+import { Zap, RotateCcw, AlertCircle, Cpu } from 'lucide-react'
+
+import Header from './components/Header'
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
 import FeatureForm from './components/FeatureForm'
 import ResultCard from './components/ResultCard'
 import LoadingSpinner from './components/LoadingSpinner'
 import MempoolStream from './components/MempoolStream'
 
+<<<<<<< HEAD
 import { predict, analyzeAddress } from './api'
 import type {
   PredictionRequest, PredictionResponse, AddressAnalysisResponse,
@@ -19,6 +26,12 @@ import { FRAUD_EXAMPLE, SAFE_EXAMPLE } from './types'
 // Union type so result can hold either basic response or full Phase-2 response
 type AnyResult = PredictionResponse | AddressAnalysisResponse
 
+=======
+import { predict } from './api'
+import type { PredictionRequest, PredictionResponse, AppState } from './types'
+import { FRAUD_EXAMPLE, SAFE_EXAMPLE } from './types'
+
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
 const BLANK: PredictionRequest = {
   avg_min_between_sent_tnx: 0, avg_min_between_received_tnx: 0,
   time_diff_first_last_mins: 0, unique_received_from_addresses: 0,
@@ -31,6 +44,7 @@ const BLANK: PredictionRequest = {
 }
 
 export default function App() {
+<<<<<<< HEAD
   const [appState, setAppState]   = useState<AppState>('idle')
   const [inputMode, setInputMode] = useState<InputMode>('address')
   const [values, setValues]       = useState<PredictionRequest>(BLANK)
@@ -49,6 +63,23 @@ export default function App() {
       const res: AddressAnalysisResponse = await analyzeAddress(address)
       setResult(res)
       setTxCount(res.transaction_count)
+=======
+  const [appState, setAppState] = useState<AppState>('idle')
+  const [values, setValues] = useState<PredictionRequest>(BLANK)
+  const [result, setResult] = useState<PredictionResponse | null>(null)
+  const [errorMsg, setErrorMsg] = useState('')
+
+  const handleChange = useCallback((key: keyof PredictionRequest, value: number) => {
+    setValues((prev) => ({ ...prev, [key]: value }))
+  }, [])
+
+  const handleSubmit = async () => {
+    setAppState('loading')
+    setErrorMsg('')
+    try {
+      const res = await predict(values)
+      setResult(res)
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
       setAppState('result')
     } catch (err: unknown) {
       setErrorMsg(err instanceof Error ? err.message : 'Failed to connect to backend')
@@ -56,6 +87,7 @@ export default function App() {
     }
   }
 
+<<<<<<< HEAD
   const handleManualSubmit = async () => {
     setAppState('loading')
     setErrorMsg('')
@@ -76,20 +108,38 @@ export default function App() {
     setErrorMsg('')
     setTxCount(null)
   }
+=======
+  const handleReset = () => { setAppState('idle'); setResult(null); setErrorMsg('') }
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
 
   return (
     <div className="relative min-h-screen eth-radial-bg eth-grid-bg"
       style={{ fontFamily: 'Inter, sans-serif', background: '#080810' }}>
+<<<<<<< HEAD
       <MempoolStream />
       <div className="relative flex min-h-screen flex-col" style={{ zIndex: 10 }}>
         <Header />
         <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
           <AnimatePresence mode="wait">
 
+=======
+
+      {/* 3D Mempool background */}
+      <MempoolStream />
+
+      <div className="relative flex min-h-screen flex-col" style={{ zIndex: 10 }}>
+        <Header />
+
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
+          <AnimatePresence mode="wait">
+
+            {/* ── FORM ──────────────────────────────────────────────── */}
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
             {(appState === 'idle' || appState === 'error') && (
               <motion.div key="form"
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }}
+<<<<<<< HEAD
                 className="space-y-5">
 
                 <div className="text-center space-y-2 pb-2">
@@ -136,17 +186,111 @@ export default function App() {
                 {appState === 'error' && (
                   <motion.div className="flex items-center gap-3 rounded-xl px-4 py-3"
                     style={{ background: 'rgba(255,107,107,0.06)', border: '1px solid rgba(255,107,107,0.25)' }}
+=======
+                className="space-y-5"
+              >
+                {/* Hero */}
+                <div className="text-center space-y-2 pb-2">
+                  <motion.div
+                    className="inline-flex items-center gap-2 rounded-full px-4 py-1.5"
+                    style={{ background: 'rgba(98,126,234,0.08)',
+                      border: '1px solid rgba(98,126,234,0.2)' }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    <Cpu size={11} style={{ color: '#627EEA' }} />
+                    <span className="font-mono"
+                      style={{ fontSize: 11, letterSpacing: '0.1em', color: '#8B9FEF' }}>
+                      XGBOOST · 13,920 TRAINING SAMPLES · ROC-AUC 0.989
+                    </span>
+                  </motion.div>
+
+                  <motion.h2
+                    className="shimmer-text"
+                    style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 28 }}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    Analyze Ethereum Address
+                  </motion.h2>
+                  <motion.p className="font-mono"
+                    style={{ fontSize: 12, color: '#64748B' }}
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}>
+                    Input 22 behavioral features to detect on-chain fraud patterns
+                  </motion.p>
+                </div>
+
+                {/* Quick fill */}
+                <motion.div className="flex flex-wrap items-center justify-center gap-2"
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                  transition={{ delay: 0.25 }}>
+                  <span className="font-mono" style={{ fontSize: 10, color: '#374151', letterSpacing: '0.1em' }}>
+                    QUICK FILL:
+                  </span>
+                  <button onClick={() => setValues(FRAUD_EXAMPLE)}
+                    className="rounded-lg px-3 py-1.5 font-mono transition-all"
+                    style={{ fontSize: 11, color: '#FF6B6B',
+                      background: 'rgba(255,107,107,0.06)',
+                      border: '1px solid rgba(255,107,107,0.25)' }}
+                    onMouseEnter={e => {
+                      (e.target as HTMLElement).style.background = 'rgba(255,107,107,0.12)'
+                      ;(e.target as HTMLElement).style.borderColor = 'rgba(255,107,107,0.5)'
+                    }}
+                    onMouseLeave={e => {
+                      (e.target as HTMLElement).style.background = 'rgba(255,107,107,0.06)'
+                      ;(e.target as HTMLElement).style.borderColor = 'rgba(255,107,107,0.25)'
+                    }}>
+                    ⚠ High-Risk Example
+                  </button>
+                  <button onClick={() => setValues(SAFE_EXAMPLE)}
+                    className="rounded-lg px-3 py-1.5 font-mono transition-all"
+                    style={{ fontSize: 11, color: '#06D6A0',
+                      background: 'rgba(6,214,160,0.06)',
+                      border: '1px solid rgba(6,214,160,0.25)' }}
+                    onMouseEnter={e => {
+                      (e.target as HTMLElement).style.background = 'rgba(6,214,160,0.12)'
+                      ;(e.target as HTMLElement).style.borderColor = 'rgba(6,214,160,0.5)'
+                    }}
+                    onMouseLeave={e => {
+                      (e.target as HTMLElement).style.background = 'rgba(6,214,160,0.06)'
+                      ;(e.target as HTMLElement).style.borderColor = 'rgba(6,214,160,0.25)'
+                    }}>
+                    ✓ Safe Example
+                  </button>
+                  <button onClick={() => setValues(BLANK)}
+                    className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono transition-all"
+                    style={{ fontSize: 11, color: '#374151',
+                      background: 'transparent',
+                      border: '1px solid rgba(37,37,56,0.6)' }}>
+                    <RotateCcw size={10} /> Clear All
+                  </button>
+                </motion.div>
+
+                {/* Error */}
+                {appState === 'error' && (
+                  <motion.div className="flex items-center gap-3 rounded-xl px-4 py-3"
+                    style={{ background: 'rgba(255,107,107,0.06)',
+                      border: '1px solid rgba(255,107,107,0.25)' }}
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
                     initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }}>
                     <AlertCircle size={14} style={{ color: '#FF6B6B', flexShrink: 0 }} />
                     <div>
                       <p className="font-mono" style={{ fontSize: 11, fontWeight: 600, color: '#FF6B6B' }}>
+<<<<<<< HEAD
                         {inputMode === 'address' ? 'FETCH ERROR' : 'CONNECTION ERROR'}
+=======
+                        CONNECTION ERROR
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
                       </p>
                       <p className="font-mono" style={{ fontSize: 10, color: '#64748B' }}>{errorMsg}</p>
                     </div>
                   </motion.div>
                 )}
 
+<<<<<<< HEAD
                 <AnimatePresence mode="wait">
                   {inputMode === 'address' && (
                     <motion.div key="addr"
@@ -226,15 +370,72 @@ export default function App() {
               <motion.div key="result"
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <ResultCard result={result as AddressAnalysisResponse} onReset={handleReset} txCount={txCount} />
+=======
+                {/* Form */}
+                <FeatureForm values={values} onChange={handleChange} />
+
+                {/* Submit */}
+                <motion.button onClick={handleSubmit}
+                  className="relative w-full overflow-hidden rounded-xl py-4 font-mono transition-all"
+                  style={{
+                    fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 15,
+                    letterSpacing: '0.12em', color: '#8B9FEF',
+                    background: 'rgba(98,126,234,0.08)',
+                    border: '1px solid rgba(98,126,234,0.35)',
+                    boxShadow: '0 0 30px rgba(98,126,234,0.1)',
+                  }}
+                  whileHover={{ boxShadow: '0 0 50px rgba(98,126,234,0.25)',
+                    background: 'rgba(98,126,234,0.12)',
+                    borderColor: 'rgba(98,126,234,0.6)' }}
+                  whileTap={{ scale: 0.99 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {/* Shimmer */}
+                  <motion.div
+                    className="absolute inset-0"
+                    style={{ background: 'linear-gradient(90deg, transparent, rgba(98,126,234,0.12), transparent)' }}
+                    animate={{ x: ['-100%', '200%'] }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 1 }}
+                  />
+                  <span className="relative flex items-center justify-center gap-2.5">
+                    <Zap size={16} /> ANALYZE ADDRESS
+                  </span>
+                </motion.button>
+              </motion.div>
+            )}
+
+            {/* ── LOADING ────────────────────────────────────────────── */}
+            {appState === 'loading' && (
+              <motion.div key="loading"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <LoadingSpinner />
+              </motion.div>
+            )}
+
+            {/* ── RESULT ─────────────────────────────────────────────── */}
+            {appState === 'result' && result && (
+              <motion.div key="result"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <ResultCard result={result} onReset={handleReset} />
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
               </motion.div>
             )}
 
           </AnimatePresence>
         </main>
 
+<<<<<<< HEAD
         <footer style={{ borderTop: '1px solid rgba(37,37,56,0.4)' }} className="py-4 text-center">
           <p className="font-mono" style={{ fontSize: 10, letterSpacing: '0.12em', color: '#1e293b' }}>
             ETHEREUM FRAUD SENTINEL · XGBOOST + ENSEMBLE + SHAP · THRESHOLD 0.30 · FOR RESEARCH USE
+=======
+        {/* Footer */}
+        <footer style={{ borderTop: '1px solid rgba(37,37,56,0.4)' }} className="py-4 text-center">
+          <p className="font-mono" style={{ fontSize: 10, letterSpacing: '0.12em', color: '#1e293b' }}>
+            ETHEREUM FRAUD SENTINEL · XGBOOST MODEL · THRESHOLD 0.30 · FOR RESEARCH USE
+>>>>>>> 186ab02048f8357d6a7ff5ffc9a9d26ea2f4c651
           </p>
         </footer>
       </div>
